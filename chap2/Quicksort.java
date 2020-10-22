@@ -1,36 +1,27 @@
+/**
+ * exercise 2-2: our java quicksort does a fair amount of type conversion
+ * as some items are cast from their original type (like Integer) to Object
+ * and back again. experiment with a version of Quicksort.sort that
+ * uses the specific type to be sorted, to estimate what performance
+ * penalty is incurred by type conversions.
+ */
+
 import java.util.Random;
 import java.util.Arrays;
 
-interface Cmp {
-    int cmp(Object x, Object y);
-}
-
-// Int_cmp: compare integers
-class Icmp implements Cmp {
-    public int cmp(Object o1, Object o2)
-    {
-        int i1 = ((Integer) o1).intValue();
-        int i2 = ((Integer) o2).intValue();
-        if (i1 < i2)
-            return -1;
-        else if (i1 == i2)
-            return 0;
-        else 
-            return 1;
-    }
-}
-
-class Strcmp implements Cmp {
-    public int cmp(Object o1, Object o2)
-    {
-        String s1 = (String) o1;
-        String s2 = (String) o2;
-        return s1.compareTo(s2);
-    }
-}
 
 public class Quicksort {
-    static void sort(Object[] v, int left, int right, Cmp cmp)
+    static int cmp(int a, int b)
+    {
+        if (a < b)
+            return -1;
+        else if (a == b)
+            return 0;
+        else
+            return 1;
+    }
+
+    static void sort(int[] v, int left, int right)
     {
         int i, last;
         if (left >= right)  // nothing to do
@@ -38,12 +29,12 @@ public class Quicksort {
         swap(v, left, rand(left, right));  // pivot on random number
         last = left;
         for (i = left+1; i <= right; i++) {
-            if (cmp.cmp(v[i], v[left]) < 0)
+            if (cmp(v[i], v[left]) < 0)
                 swap(v, ++last, i);
-    }
+        }
     swap(v, left, last);
-    sort(v, left, last - 1, cmp);
-    sort(v, last + 1, right, cmp);
+    sort(v, left, last - 1);
+    sort(v, last + 1, right);
     }
 
     static Random rgen = new Random();
@@ -52,8 +43,8 @@ public class Quicksort {
         return left + Math.abs(rgen.nextInt()) % (right - left + 1);
     }
 
-    static void swap(Object[] v, int i, int j) {
-        Object temp;
+    static void swap(int[] v, int i, int j) {
+        int temp;
 
         temp = v[i];
         v[i] = v[j];
@@ -61,8 +52,8 @@ public class Quicksort {
     }
 
     public static void main(String[] args) {
-        Integer[] arr = {3, 1, 5, 8, 2, 4, 0};
-        Quicksort.sort(arr, 0, arr.length - 1, new Icmp());
+        int[] arr = {87, 3, 12, 45, 0, 9, 23, 90};
+        Quicksort.sort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
     }
 }
