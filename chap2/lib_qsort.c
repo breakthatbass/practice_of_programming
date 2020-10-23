@@ -145,7 +145,7 @@ int main()
     printf("sorting random_nums.txt\n");
     qsort_timer(r_n, random_numbers_count);
     printf("sorting rand_chars.txt\n");
-    qsort_timer(r_c, rand_chars_count);
+    qsort_timer(r_c, rand_chars_count);    
 
     return 0;
 }
