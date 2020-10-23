@@ -125,8 +125,7 @@ int main()
     // run the python script to get the numbers for the arrays
     system("python3 file_script.py");
 
-    // two files are created
-    // need the number of elements in each
+    // need the number of elements in each of the files
     int high_to_low_count = count_lines(high_to_low);
     int all_the_same_count = count_lines(the_same);
     int random_numbers_count = count_lines(rand_nums);
