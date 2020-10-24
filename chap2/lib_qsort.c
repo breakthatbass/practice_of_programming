@@ -24,14 +24,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
 #include <time.h> 
-
-// file names to use to call the python script
-#define HIGHTOLOW   "high_to_low.txt"
-#define SAME        "all_the_same.txt"
-#define RANDOM      "random_nums.txt"
-#define RANDDCHARS  "rand_chars.txt"
 
 // open a file, count the lines, return count
 int count_lines(char *file)
@@ -42,7 +37,7 @@ int count_lines(char *file)
 
   fp = fopen(file, "r");
   if (fp == NULL) {
-      fprintf(stderr, "Could not open file %s\n", file);
+      fprintf(stderr, "count_lines: could not open file %s\n", file);
       exit(EXIT_FAILURE);
   }
 
@@ -67,7 +62,7 @@ int *load_array(char *file, int *file_length)
 
   FILE *fp = fopen(file, "r");
   if (fp == NULL) {
-    fprintf(stderr, "could not open file %s\n", file);
+    fprintf(stderr, "load_array: could not open file %s\n", file);
     exit(EXIT_FAILURE);
   }
 
@@ -122,13 +117,19 @@ void qsort_timer(int *arr, int file_len)
 int main()
 {
     // variables for the files
-    char *high_to_low = "high_to_low.txt";
-    char *the_same = "all_the_same.txt";
-    char *rand_nums = "random_nums.txt";
-    char *rand_chars = "rand_chars.txt";
+    char *high_to_low = "high_to_low.txt ";
+    char *the_same = "all_the_same.txt ";
+    char *rand_nums = "random_nums.txt ";
+    char *rand_chars = "rand_chars.txt ";
+
+    char command[100] = "python3 file_script.py ";
+    strcat(command, high_to_low);
+    strcat(command, the_same);
+    strcat(command, rand_nums);
+    strcat(command, rand_chars);
 
     // run the python script to get the numbers for the arrays
-    system("python3 file_script.py");
+    system(command);
 
     // need the number of elements in each of the files
     int high_to_low_count = count_lines(high_to_low);
