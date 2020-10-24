@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g -lm -std=c99 -pedantic
+CFLAGS=-ggdb3 -Wall -Wextra -Wconversion -pedantic
 SRC=lib_qsort.c
 
 ifndef NAME
@@ -9,7 +9,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(SRC)
-	$(CC) -o $(NAME) $(SRC) $(CFLAGS)
+	$(CC) $(CFLAGS) $(SRC) -o $(NAME)
 
 clean:
 	rm $(NAME) *.txt
