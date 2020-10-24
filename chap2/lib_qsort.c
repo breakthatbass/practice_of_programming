@@ -27,6 +27,11 @@
 #include <ctype.h>
 #include <time.h> 
 
+// file names to use to call the python script
+#define HIGHTOLOW   "high_to_low.txt"
+#define SAME        "all_the_same.txt"
+#define RANDOM      "random_nums.txt"
+#define RANDDCHARS  "rand_chars.txt"
 
 // open a file, count the lines, return count
 int count_lines(char *file)
