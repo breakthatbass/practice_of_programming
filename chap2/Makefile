@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-ggdb3 -Wall -Wextra -Wconversion -pedantic
+CFLAGS=-g -Wall -Wextra -Wconversion -pedantic
 SRC=lib_qsort.c
 
 ifndef NAME

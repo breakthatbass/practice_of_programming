@@ -80,7 +80,7 @@ int *load_array(char *file, int *file_length)
   i = 0;
   while (fgets(line, MAX_LINE, fp)) { 
      // convert to int and append to nums array
-    nums[i] = atoi(line);
+    *(nums + i) = atoi(line);
     i++;
   }
   fclose(fp);
@@ -117,15 +117,19 @@ void qsort_timer(int *arr, int file_len)
 int main()
 {
     // variables for the files
-    char *high_to_low = "high_to_low.txt ";
-    char *the_same = "all_the_same.txt ";
-    char *rand_nums = "random_nums.txt ";
-    char *rand_chars = "rand_chars.txt ";
+    char *high_to_low = "high_to_low.txt";
+    char *the_same = "all_the_same.txt";
+    char *rand_nums = "random_nums.txt";
+    char *rand_chars = "rand_chars.txt";
 
     char command[100] = "python3 file_script.py ";
+    // add the files as args, with spaces inbetween each
     strcat(command, high_to_low);
+    strcat(command, " ");
     strcat(command, the_same);
+    strcat(command, " ");
     strcat(command, rand_nums);
+    strcat(command, " ");
     strcat(command, rand_chars);
 
     // run the python script to get the numbers for the arrays
