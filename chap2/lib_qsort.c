@@ -93,12 +93,9 @@ int *load_array(char *file, int *file_length)
 // compare function to use with qsort
 int cmp(const void *a, const void *b)
 {
-    if (a < b)
-            return -1;
-        else if (a == b)
-            return 0;
-        else
-            return 1;
+    if (a < b) return -1;
+    else if (a == b) return 0;
+    else return 1;
 }
 
 // give qsort an array and record the time it takes to sort
@@ -115,6 +112,7 @@ void qsort_timer(int *arr, int file_len)
     free(arr);
 }
 
+// check if files exist to prevent rewriting files
 bool file_exists (char *filename) {
   struct stat   buffer;   
   return (stat (filename, &buffer) == 0);
