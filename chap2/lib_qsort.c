@@ -26,7 +26,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <time.h> 
+#include <time.h>
+#include <sys/stat.h>
+#include <stdbool.h> 
 
 // open a file, count the lines, return count
 int count_lines(char *file)
@@ -113,6 +115,11 @@ void qsort_timer(int *arr, int file_len)
     free(arr);
 }
 
+bool file_exists (char *filename) {
+  struct stat   buffer;   
+  return (stat (filename, &buffer) == 0);
+}
+
 
 int main()
 {
@@ -122,18 +129,21 @@ int main()
     char *rand_nums = "random_nums.txt";
     char *rand_chars = "rand_chars.txt";
 
-    char command[100] = "python3 file_script.py ";
-    // add the files as args, with spaces inbetween each
-    strcat(command, high_to_low);
-    strcat(command, " ");
-    strcat(command, the_same);
-    strcat(command, " ");
-    strcat(command, rand_nums);
-    strcat(command, " ");
-    strcat(command, rand_chars);
+    if (file_exists(high_to_low) == false) {
+    // if files already exist, don't recreate them
+      char command[100] = "python3 file_script.py ";
+      // add the files as args, with spaces inbetween each
+      strcat(command, high_to_low);
+      strcat(command, " ");
+      strcat(command, the_same);
+      strcat(command, " ");
+      strcat(command, rand_nums);
+      strcat(command, " ");
+      strcat(command, rand_chars);
 
-    // run the python script to get the numbers for the arrays
-    system(command);
+      // run the python script to get the numbers for the arrays
+      system(command);
+    }
 
     // need the number of elements in each of the files
     int high_to_low_count = count_lines(high_to_low);
