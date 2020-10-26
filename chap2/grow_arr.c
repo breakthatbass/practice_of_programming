@@ -1,5 +1,8 @@
 /*
- * growing arrays...
+ * exercise 2-6: implement the necessary changes to addname and delname to
+ * delete items by marking items as unused. how isolated is the program from
+ * this change?
+ *
  * */
 
 #include <stdio.h>
@@ -51,18 +54,61 @@ int delname(char *name)
 
 	for (i = 0; i < nvtab.nval; i++)
 		if (strcmp(nvtab.nameval[i].name, name) == 0) {
-			memmove(nvtab.nameval + i, 
-					nvtab.nameval + i + 1, 
-					(nvtab.nval - (i + 1)) * sizeof(Nameval));
+			memmove(nvtab.nameval + i, nvtab.nameval + i + 1, (nvtab.nval - (i + 1)) * sizeof(Nameval));
+			// set as unused
+			(nvtab.nameval+i+1)->name = NULL;
+			(nvtab.nameval+i+1)->value = 0;
+
 			nvtab.nval--;
 			return 1;
 		}
 	return 0;
 }
 
+void printarr(Nameval arr)
+{
+	int i = 0;
+	//for(i = 0; i < nvtab.max-1; i++)  
+	//	printf("name: %s, value: %d\n", nvtab.nameval[i].name, nvtab.nameval[i].value);	
+
+	while (nvtab.nameval[i].name != NULL) {
+		printf("name: %s, value: %d\n", nvtab.nameval[i].name, nvtab.nameval[i].value);	
+		i++;
+	}
+}
+
 
 int main()
 {
+
+	Nameval el;
+
+	el.name = "taylor";
+	el.value = 33;
+	addname(el);
+
+	el.name = "suki";
+	el.value = 5;
+	addname(el);
+
+	el.name = "catharine";
+	el.value = 36;
+	addname(el);
+	
+	printf("original array:\n");
+	printarr(el);
+
+	delname("suki");
+	
+	printf("array with element deleted: \n");
+	printarr(el);
+
+	el.name = "bill";
+	el.value = 75;
+	addname(el);
+
+	printf("array with element added: \n");
+	printarr(el);
 
 	return 0;
 }
