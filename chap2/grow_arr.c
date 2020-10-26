@@ -68,9 +68,6 @@ int delname(char *name)
 void printarr(Nameval arr)
 {
 	int i = 0;
-	//for(i = 0; i < nvtab.max-1; i++)  
-	//	printf("name: %s, value: %d\n", nvtab.nameval[i].name, nvtab.nameval[i].value);	
-
 	while (nvtab.nameval[i].name != NULL) {
 		printf("name: %s, value: %d\n", nvtab.nameval[i].name, nvtab.nameval[i].value);	
 		i++;
