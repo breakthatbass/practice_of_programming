@@ -10,5 +10,9 @@ This repo holds my answers to the exercises in the book.
    2-3: [lib_qsort.c](https://github.com/breakthatbass/practice_of_programming/blob/main/chap2/lib_qsort.c), [file_script.py](https://github.com/breakthatbass/practice_of_programming/blob/main/chap2/file_script.py)  
    2-4: [slow_sort.c](https://github.com/breakthatbass/practice_of_programming/blob/main/chap2/slow_sort.c)  
    2-5: skipped  
-   2-6: [grow_arr.c](https://github.com/breakthatbass/practice_of_programming/blob/main/chap2/grow_arr.c)
+   2-6: [grow_arr.c](https://github.com/breakthatbass/practice_of_programming/blob/main/chap2/grow_arr.c)  
+   2-7: [nv_list.c](https://github.com/breakthatbass/practice_of_programming/blob/main/chap2/nv_list.c)  
+   2-8: [nv_list.c](https://github.com/breakthatbass/practice_of_programming/blob/main/chap2/nv_list.c)  
+   2-9: [voidlist.c](https://github.com/breakthatbass/practice_of_programming/blob/main/chap2/voidlist.c)  
+   2-10: skipped (for now)
 
