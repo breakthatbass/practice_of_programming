@@ -186,6 +186,8 @@ Nameval *insert_before(Nameval *listp, Nameval *newp, char *name)
 	return NULL;
 }
 
+
+// reverse_iter: reverse listp interitely
 void reverse_iter(Nameval **listp)
 {
 	Nameval *prev, *current, *next;
