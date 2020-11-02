@@ -148,6 +148,21 @@ Nameval *split(Nameval **listp, int split_point)
 	return tmp;
 }
 
+// insert_after: insert new node after prev_node
+Nameval *insert_after(Nameval *listp, Nameval *newp, char *name)
+{
+	Nameval *tmp;
+	for (tmp = listp; tmp != NULL; tmp = tmp->next) {
+		if (strcmp(name, tmp->name) == 0) {
+			newp->next = tmp->next;
+			tmp->next = newp;
+		}
+		return listp;
+	}
+	printf("not in list");
+	return NULL;
+}
+
 
 // functions for apply function pointer
 
@@ -187,6 +202,7 @@ int main()
 	Nameval *newlist;		// list to copy to
 	Nameval *mergelist;		// list to merge into
 	Nameval *splitlist;		// list for split function
+	Nameval *insert;		// for the insert functions
 
 	
 	// create and add to list
@@ -199,28 +215,32 @@ int main()
 	apply(list, printnv, "%s: %d\n");
 
 	// count elements in list and print number
+	printf("\n");
 	int n = 0;
 	apply(list, inccounter, &n);
 	printf("%d elements in list\n", n);
 
 	// make copy of list and print it
+	printf("\nmaking a copy of the list and printing it...\n");
 	newlist = copy(list);
 	apply(newlist, printnv, "%s: %d\n");
 
 	// merge original list and copied list
+	printf("\nmerging original list and copied list...\n");
 	mergelist = merge(list, newlist);
-
-	// print merged list
-	printf("\nmerged list:\n");
 	apply(mergelist, printnv, "%s: %d\n");
 
 	// split the list
 	printf("\nsplitting list..\n");
-	
 	splitlist = split(&mergelist, 3);
 	apply(splitlist, printnv, "%s: %d\n");
 
 
+	// insert after
+	printf("\nadding after...\n");
+	node = newitem("raphael nadal", 2);
+	insert_after(newlist, node, "tom brady");
+	apply(splitlist, printnv, "%s: %d\n");
 
 	return 0;
 }
