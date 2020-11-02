@@ -69,11 +69,12 @@ static void print_strs(node *head)
 	node *tmp = head;
 
 	while (tmp != NULL) {
-		printf("%s\n", (char)tmp->value);
+		printf("%s\n", (char*)tmp->value);
 		tmp = tmp->next;
 	}
 }
 
+#define ARRLEN 4
 
 int main()
 {
@@ -83,27 +84,23 @@ int main()
 	node *int_list = NULL;
 	node *str_list = NULL;
 
-	// push ints to list
-	for (i = 1; i <= 5; i++) {
-		new_node = create_new_node(i);
-		push(&int_list, new_node);
-	}
+	int nums[] = {1, 2, 3, 4};
 
-	
-	// append ints to list
-	for (i = 6; i <= 10; i++) {
-		new_node = create_new_node(i);
-		append(&int_list, new_node);
+	// push ints to list
+	for (i = 0; i < ARRLEN; i++) {
+		new_node = create_new_node(nums[i]);
+		push(&int_list, new_node);
 	}
 
 
 	// test it out with strings
-	const char *names[666666] = {"bill", "bob", "frank", "joe"};
+	const char *names[] = {"bill", "bob", "frank", "joe"};
 
-	char name;
-	for (i = 0; i < 4; i++) {
+	char *name;
+	for (i = 0; i < ARRLEN; i++) {
 		name = strdup(names[i]);
-		append(&str_list, &name);
+		new_node = create_new_node(name);
+		append(&str_list, new_node);
 	}
 
 	print_ints(int_list);
