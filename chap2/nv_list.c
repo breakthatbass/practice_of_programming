@@ -1,3 +1,11 @@
+/**
+ * exercise 2-7: implement some of the other operators: copy, merge, split,
+ * insert before or after a specific item. how do the two insertion operations
+ * differ in difficulty? how much can you use the routines we've written, and
+ * how much must you create yourself?
+ *
+ * */
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -95,8 +103,52 @@ Nameval *delitem(Nameval *listp, char *name)
 	return NULL;	// can't get here
 }
 
+
+// functions for apply function pointer
+
+// call like this: apply(nvlist, printnv, "%s: %x\n");
+void printnv(Nameval *p, void *arg)
+{
+	char *fmt;
+
+	fmt = (char *) arg;
+	printf(fmt, p->name, p->value);
+}
+
+
+void inccounter(Nameval *p, void *arg)
+{
+	int *ip;
+
+	// p is unused
+	ip = (int *) arg;
+	(*ip)++;
+}
+
+static void printlist(Nameval *head)
+{
+	Nameval *tmp = head;
+	while (tmp != NULL)
+	{
+		printf("%d\n", tmp->value);
+		tmp = tmp->next;						    
+	}	
+}
+
 int main()
 {
+	Nameval *list, *node, *add, *end;
+
+	list = newitem("tom brady", 12);
+	end = addend(list, newitem("michael jordan", 23));
+	end = addend(list, newitem("steve kerr", 25));
+	end = addend(list, newitem("roger federer", 1));
+		
+	apply(list, printnv, "%s: %d\n");
+
+	int n = 0;
+	apply(list, inccounter, &n);
+	printf("%d elements in list\n", n);
 
 	return 0;
 }
