@@ -163,6 +163,26 @@ Nameval *insert_after(Nameval *listp, Nameval *newp, char *name)
 	return NULL;
 }
 
+Nameval *insert_before(Nameval *listp, Nameval *newp, char *name)
+{
+	Nameval *tmp, *prev;
+
+	prev = NULL;
+	for (tmp = listp; tmp != NULL; prev = tmp, tmp = tmp->next) {
+		if (strcmp(name, tmp->name) == 0) {
+			if (prev == NULL) 
+				listp = addfront(listp, newp);
+			else {
+				newp->next = tmp;
+				prev->next = newp;
+			}
+			return listp;
+		}
+	}
+	printf("not in list");
+	return NULL;
+}
+
 
 // functions for apply function pointer
 
@@ -240,6 +260,13 @@ int main()
 	printf("\nadding after...\n");
 	node = newitem("raphael nadal", 2);
 	insert_after(newlist, node, "tom brady");
+	apply(splitlist, printnv, "%s: %d\n");
+
+
+	// insert before
+	printf("\nadding before...\n");
+	node = newitem("gronk", 87);
+	insert_before(newlist, node, "steve kerr");
 	apply(splitlist, printnv, "%s: %d\n");
 
 	return 0;
