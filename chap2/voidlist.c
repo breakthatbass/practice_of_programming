@@ -20,7 +20,7 @@ struct node {
 
 static node *create_new_node(void *value)
 {
-	node *new_node = malloc(sizeof(node));
+	node *new_node = (node *)malloc(sizeof(node));
 	new_node->value = value;
 	new_node->next = NULL;
 
@@ -88,7 +88,7 @@ int main()
 
 	// push ints to list
 	for (i = 0; i < ARRLEN; i++) {
-		new_node = create_new_node(nums[i]);
+		new_node = create_new_node((void *)nums[i]);
 		push(&int_list, new_node);
 	}
 
