@@ -103,6 +103,17 @@ Nameval *delitem(Nameval *listp, char *name)
 	return NULL;	// can't get here
 }
 
+Nameval *copy(Nameval *listp)
+{
+	Nameval *newlist;
+
+	newlist = NULL;
+	for ( ; listp != NULL; listp = listp->next )
+		newlist = addend(newlist, newitem(listp->name, listp->value));
+
+	return newlist;
+}
+
 
 // functions for apply function pointer
 
@@ -137,7 +148,7 @@ static void printlist(Nameval *head)
 
 int main()
 {
-	Nameval *list, *node, *add, *end;
+	Nameval *list, *node, *add, *end, *newlist;
 
 	list = newitem("tom brady", 12);
 	end = addend(list, newitem("michael jordan", 23));
@@ -149,6 +160,9 @@ int main()
 	int n = 0;
 	apply(list, inccounter, &n);
 	printf("%d elements in list\n", n);
+
+	newlist = copy(list);
+	apply(newlist, printnv, "%s: %d\n");
 
 	return 0;
 }
