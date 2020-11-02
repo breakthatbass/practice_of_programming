@@ -103,6 +103,8 @@ Nameval *delitem(Nameval *listp, char *name)
 	return NULL;	// can't get here
 }
 
+
+// copy: make a copy of listp
 Nameval *copy(Nameval *listp)
 {
 	Nameval *newlist;
@@ -112,6 +114,14 @@ Nameval *copy(Nameval *listp)
 		newlist = addend(newlist, newitem(listp->name, listp->value));
 
 	return newlist;
+}
+
+
+// merge: merge two list into one
+Nameval *merge(Nameval *list_a, Nameval *list_b)
+{
+	list_a = addend(list_a, list_b);
+	return list_a;
 }
 
 
@@ -148,21 +158,38 @@ static void printlist(Nameval *head)
 
 int main()
 {
-	Nameval *list, *node, *add, *end, *newlist;
+	Nameval *list, *node, *end; 
 
+	Nameval *newlist;		// list to copy to
+	Nameval *mergelist;		// list to merge into
+
+	
+	// create and add to list
 	list = newitem("tom brady", 12);
 	end = addend(list, newitem("michael jordan", 23));
 	end = addend(list, newitem("steve kerr", 25));
 	end = addend(list, newitem("roger federer", 1));
-		
+	
+	// print list	
 	apply(list, printnv, "%s: %d\n");
 
+	// count elements in list and print number
 	int n = 0;
 	apply(list, inccounter, &n);
 	printf("%d elements in list\n", n);
 
+	// make copy of list and print it
 	newlist = copy(list);
 	apply(newlist, printnv, "%s: %d\n");
+
+	// merge original list and copied list
+	mergelist = merge(list, newlist);
+
+	// print merged list
+	printf("\nmerged list:\n");
+	apply(mergelist, printnv, "%s: %d\n");
+
+
 
 	return 0;
 }
