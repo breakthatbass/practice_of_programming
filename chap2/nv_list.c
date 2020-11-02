@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct Nameval Nameval;
 struct Nameval {
@@ -40,6 +41,58 @@ Nameval *addend(Nameval *listp, Nameval *newp)
 		;
 	p->next = newp;
 	return listp;
+}
+
+
+// lookup: sequential search for name in listp
+Nameval *lookup(Nameval *listp, char *name)
+{
+	for ( ; listp != NULL; listp = listp->next )
+		if (strcmp(name, listp->name) == 0)
+			return listp;
+	return NULL;	// no match
+}
+
+// apply: execute fn for each element in listp
+void apply(Nameval *listp, void (*fn)(Nameval*, void*), void *arg)
+{
+	for ( ; listp != NULL; listp = listp->next)
+		(*fn)(listp, arg);	// call the function
+}
+
+
+// freeall: free all elements of listp
+void freeall(Nameval *listp)
+{
+	Nameval *next;
+
+	for ( ; listp != NULL; listp = next ) {
+		next = listp->next;
+		// assumes name is freed elsewhere
+		free(listp);
+	}
+}
+
+
+// delitem: delete first "name" from listp
+Nameval *delitem(Nameval *listp, char *name)
+{
+	Nameval *p, *prev;
+
+	prev = NULL;
+	for (p = listp; p != NULL; p = p->next) {
+		if (strcmp(name, p->name) == 0) {
+			if (prev == NULL)
+				listp = p->next;
+			else
+				prev->next = p->next;
+			free(p);
+			return listp;
+		}
+		prev = p;
+	}
+	printf("delitem: %s not in list", name);
+	return NULL;	// can't get here
 }
 
 int main()
