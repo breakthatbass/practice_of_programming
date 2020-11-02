@@ -110,7 +110,7 @@ Nameval *copy(Nameval *listp)
 	Nameval *newlist;
 
 	newlist = NULL;
-	for ( ; listp != NULL; listp = listp->next )
+	for ( ; listp != NULL; listp = listp->next)
 		newlist = addend(newlist, newitem(listp->name, listp->value));
 
 	return newlist;
@@ -122,6 +122,30 @@ Nameval *merge(Nameval *list_a, Nameval *list_b)
 {
 	list_a = addend(list_a, list_b);
 	return list_a;
+}
+
+
+// split: split listp into two lists
+Nameval *split(Nameval **listp, int split_point)
+{
+	Nameval *tmp;
+	Nameval *prev;
+
+	tmp = *listp;
+	prev = *listp;
+
+	if (split_point == 0) {
+		*listp = NULL;
+		return tmp;
+	}
+
+	while (split_point > 0 && tmp != NULL) {
+		prev = tmp;
+		tmp = tmp->next;
+		split_point--;
+	}
+	prev->next = NULL;
+	return tmp;
 }
 
 
@@ -162,6 +186,7 @@ int main()
 
 	Nameval *newlist;		// list to copy to
 	Nameval *mergelist;		// list to merge into
+	Nameval *splitlist;		// list for split function
 
 	
 	// create and add to list
@@ -188,6 +213,12 @@ int main()
 	// print merged list
 	printf("\nmerged list:\n");
 	apply(mergelist, printnv, "%s: %d\n");
+
+	// split the list
+	printf("\nsplitting list..\n");
+	
+	splitlist = split(&mergelist, 3);
+	apply(splitlist, printnv, "%s: %d\n");
 
 
 
