@@ -4,6 +4,9 @@
  * differ in difficulty? how much can you use the routines we've written, and
  * how much must you create yourself?
  *
+ *
+ * exercise 2-8: write recursive and iterative versions of reverse, which
+ * reverses a list. do not create new list item; re-use the existing ones
  * */
 
 
@@ -183,6 +186,24 @@ Nameval *insert_before(Nameval *listp, Nameval *newp, char *name)
 	return NULL;
 }
 
+void reverse_iter(Nameval **listp)
+{
+	Nameval *prev, *current, *next;
+
+	prev = next = NULL;
+	current = *listp;
+
+	while (current != NULL) {
+		next = current->next;	//store next
+		current->next = prev;	// reverse current node's pointer
+
+		// move pointers one position ahead
+		prev = current;
+		current = next; 
+	}
+	*listp = prev;
+}
+
 
 // functions for apply function pointer
 
@@ -260,14 +281,18 @@ int main()
 	printf("\nadding after...\n");
 	node = newitem("raphael nadal", 2);
 	insert_after(newlist, node, "tom brady");
-	apply(splitlist, printnv, "%s: %d\n");
+	apply(newlist, printnv, "%s: %d\n");
 
 
 	// insert before
 	printf("\nadding before...\n");
 	node = newitem("gronk", 87);
 	insert_before(newlist, node, "steve kerr");
-	apply(splitlist, printnv, "%s: %d\n");
+	apply(newlist, printnv, "%s: %d\n");
 
+
+	printf("\nreversing list with reverse_iter...\n");
+	reverse_iter(&newlist);
+	apply(newlist, printnv, "%s: %d\n");
 	return 0;
 }
