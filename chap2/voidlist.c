@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 typedef struct node node;
 struct node {
@@ -88,7 +89,7 @@ int main()
 
 	// push ints to list
 	for (i = 0; i < ARRLEN; i++) {
-		new_node = create_new_node((void *)nums[i]);
+		new_node = create_new_node((void *)(intptr_t)nums[i]);
 		push(&int_list, new_node);
 	}
 
